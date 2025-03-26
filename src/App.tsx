@@ -5,7 +5,6 @@ import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 import { useNotificationProvider } from "@refinedev/antd";
 import "@refinedev/antd/dist/reset.css";
 
-import dataProvider, { GraphQLClient } from "@refinedev/graphql";
 import routerBindings, {
   DocumentTitleHandler,
   UnsavedChangesNotifier,
@@ -13,11 +12,11 @@ import routerBindings, {
 import { App as AntdApp } from "antd";
 import { BrowserRouter, Route, Routes } from "react-router";
 import { ColorModeContextProvider } from "./contexts/color-mode";
+import {authProvider, dataProvider, liveProvider} from "./providers";
 
-const API_URL = "https://your-graphql-url/graphql";
 
-const client = new GraphQLClient(API_URL);
-const gqlDataProvider = dataProvider(client);
+
+
 
 function App() {
   return (
@@ -28,15 +27,12 @@ function App() {
           <AntdApp>
             <DevtoolsProvider>
               <Refine
-                dataProvider={gqlDataProvider}
+                dataProvider={dataProvider}
+                liveProvider={liveProvider}
                 notificationProvider={useNotificationProvider}
+                authProvider={authProvider}
                 routerProvider={routerBindings}
-                options={{
-                  syncWithLocation: true,
-                  warnWhenUnsavedChanges: true,
-                  useNewQueryKeys: true,
-                  projectId: "1xa5rS-T3FgMn-xQPGSb",
-                }}
+
               >
                 <Routes>
                   <Route index element={<WelcomePage />} />
