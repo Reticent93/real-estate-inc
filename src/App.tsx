@@ -16,7 +16,7 @@ import {authProvider, dataProvider, liveProvider} from "./providers";
 
 
 
-
+const projectId =  import.meta.env.VITE_PROJECT_ID;
 
 function App() {
   return (
@@ -32,7 +32,12 @@ function App() {
                 notificationProvider={useNotificationProvider}
                 authProvider={authProvider}
                 routerProvider={routerBindings}
-
+                  options={{
+                    syncWithLocation: true,
+                    warnWhenUnsavedChanges: true,
+                    useNewQueryKeys: true,
+                    projectId: projectId,
+                  }}
               >
                 <Routes>
                   <Route index element={<WelcomePage />} />
